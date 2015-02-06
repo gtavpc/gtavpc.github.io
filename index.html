@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
 		<script>
 			var time_units = {
 				day: {
@@ -62,16 +64,14 @@
 				var count = Math.floor((window.date - new Date()) / time_unit.millis_per);
 				window.date -= count * time_unit.millis_per;
 				var count_string = count.toString();
-				document.getElementById(time_unit.name).innerText = count_string.length < 2 ? "0" + count_string : count_string;
+				document.getElementById(time_unit.name).innerHTML = count_string.length < 2 ? "0" + count_string : count_string;
 			}
 		</script>
 		<style>
-			/*
 			@font-face {
 				font-family: Sign Painter;
 				src: url("/signpainter.woff");
 			}
-			*/
 
 			html, body {
 				height: 100%;
@@ -92,7 +92,7 @@
 			.inner {
 				color: white;
 				cursor: default;
-				/*font-family: Sign Painter;*/
+				font-family: Sign Painter, sans-serif;
 				font-family: sans-serif;
 				font-size: 12vw;
 				display: table-cell;
