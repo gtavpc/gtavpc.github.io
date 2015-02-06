@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>
+			var time_units = {
+				day: {
+					millis_per: 86400000,
+					name: "day"
+				},
+
+				hour: {
+					millis_per: 3600000,
+					name: "hour"
+				},
+
+				minute: {
+					millis_per: 60000,
+					name: "minute"
+				},
+
+				second: {
+					millis_per: 1000,
+					name: "second"
+				}
+			};
+
+			var bgs = [
+				"/bg/franklin.jpg",
+				"/bg/highway.jpg",
+				"/bg/michael.jpg",
+				"/bg/tree.jpg",
+				"/bg/trevor.jpg",
+				"/bg/vinewood.jpg",
+			];
+
+			window.addEventListener("load", function () {
+				document.body.style.backgroundImage = "url('" + bgs[Math.floor(Math.random() * bgs.length)] + "')";
+				timer_loop();
+			});
+
+			function timer_loop() {
+				date_init();
+
+				for (var time_unit in time_units) {
+					set_count(time_units[time_unit]);
+				}
+
+				setTimeout(timer_loop, time_units.second.millis_per)
+			}
+
+			function date_init() {
+				window.date = new Date();
+				window.date.setMonth(2);
+				window.date.setDate(24);
+				window.date.setHours(0);
+				window.date.setMinutes(0);
+				window.date.setSeconds(0);
+				window.date.setMilliseconds(0);
+			}
+
+			function set_count(time_unit) {
+				var count = Math.floor((window.date - new Date()) / time_unit.millis_per);
+				window.date -= count * time_unit.millis_per;
+				var count_string = count.toString();
+				document.getElementById(time_unit.name).innerText = count_string.length < 2 ? "0" + count_string : count_string;
+			}
+		</script>
+		<style>
+			@font-face {
+				font-family: Sign Painter;
+				src: url("/signpainter.woff");
+			}
+
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				background: no-repeat center center fixed;
+				background-size: cover !important;
+				margin: 0;
+			}
+
+			.outer {
+				display: table;
+				height: 100%;
+				width: 100%;
+			}
+
+			.inner {
+				color: white;
+				cursor: default;
+				font-family: Sign Painter;
+				font-size: 50px;
+				display: table-cell;
+				text-align: center;
+				text-shadow: 0 0 10px black;
+				user-select: none;
+				-ms-user-select: none;
+				vertical-align: middle;
+			}
+		</style>
+		<title>
+			GTA V PC Countdown
+		</title>
+	</head>
+	<body>
+		<div class="outer">
+			<div class="inner" title="Time until 12:00 AM on March 24, 2015 in your timezone">
+				<span id="day"></span>:<span id="hour"></span>:<span id="minute"></span>:<span id="second"></span>
+			</div>
+		</div>
+	</body>
+</html>
